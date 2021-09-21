@@ -1,0 +1,2 @@
+mongoimport --mode upsert --host ${DB_HOST} --db ${DB_NAME} --collection users --type json --file /data/users.json
+mongoimport --mode upsert --host ${DB_HOST} --db ${DB_NAME} --collection wallets --type json --file /data/wallets.json

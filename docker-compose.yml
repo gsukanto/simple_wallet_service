@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+  db-import:
+    environment:
+    - DB_HOST=db
+    - DB_NAME=wallet
+    image: mongo
+    depends_on: 
+      - db
+    volumes:
+      - ./data:/data
+    command: sh data/import.sh
+  simple-wallet-service:
+    env_file: .env.example
+    volumes:
+      - .:/home/app/
+      - /home/app/node_modules
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    command: npm start
